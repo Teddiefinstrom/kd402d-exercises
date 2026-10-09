@@ -10,6 +10,8 @@ function exercise2(start) {
   console.log("Exercise 2: is duration 8n? " + (duration === "8n"));
   // Keep the round brackets around the comparison. Without them, JavaScript glues the text
   // and duration together first, and compares that.
+  console.log("Exercise 2: is duration not 4n? " + (duration !== "4n"));
+  console.log("Exercise 2: is the tempo more than 100? " + (bpm > 100));
 
   // TODO 2a: log two more questions the same way. Say each one out loud, and predict its answer:
   //            duration !== "4n"   is duration not 4n?

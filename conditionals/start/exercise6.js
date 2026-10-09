@@ -3,7 +3,7 @@
 // The rest are skipped.
 
 function exercise6(start) {
-  let bpm = 90; // try 60, 100 and 140
+  let bpm = 120; // try 60, 100 and 140
 
   // TODO 6a: pick a note from the tempo band:
   //            slower than 80:        play "C3", a low note
@@ -11,6 +11,18 @@ function exercise6(start) {
   //            anything else:         play "C5", a high note
   //          Use if (bpm < 80) { … } else if (bpm < 120) { … } else { … }
   //          Each block has one synth.triggerAttackRelease(…, "4n", start);
+
+if (bpm < 80) {
+  synth.triggerAttackRelease("C3", "4n", start);
+  console.log("low note");
+} else if (bpm < 120) {
+synth.triggerAttackRelease("C4", "4n", start);
+console.log("medium note");
+} else {
+  synth.triggerAttackRelease("C5", "4n", start);
+  console.log("high note");
+}
+
   // TODO 6b: predict, then press, with bpm at 60, 100 and 140. Then try the edges: 80 and 120.
 }
 

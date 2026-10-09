@@ -10,19 +10,22 @@ function exercise8(start) {
   // TODO 8b: press the button. Which block ran? Is it the one you expected for 150?
   // TODO 8c: fix the order of the questions, so 150 plays the fast pattern and 90 still plays
   //          the middle one. Then test 50, 90 and 150.
-  if (bpm > 60) {
-    // middle: two notes
-    synth.triggerAttackRelease("C4", "8n", start);
-    synth.triggerAttackRelease("E4", "8n", start + 0.25);
-  } else if (bpm > 120) {
-    // fast: four high notes
+  if (bpm > 120) {
+        // fast: four high notes
     synth.triggerAttackRelease("C5", "16n", start);
     synth.triggerAttackRelease("E5", "16n", start + 0.125);
     synth.triggerAttackRelease("G5", "16n", start + 0.25);
     synth.triggerAttackRelease("C6", "16n", start + 0.375);
+    console.log("Exercise 8: playing the fast pattern because bpm is " + bpm);
+  } else if (bpm > 60) {
+   // middle: two notes
+    synth.triggerAttackRelease("C4", "8n", start);
+    synth.triggerAttackRelease("E4", "8n", start + 0.25);
+    console.log("Exercise 8: playing the middle pattern because bpm is " + bpm);
   } else {
     // slow: one long low note
     synth.triggerAttackRelease("C3", "2n", start);
+    console.log("Exercise 8: playing the slow pattern because bpm is " + bpm);
   }
 }
 
