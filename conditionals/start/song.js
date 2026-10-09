@@ -3,6 +3,10 @@
 // Do the steps in order. After each one: save, press Play, listen, check the console, commit.
 // bass and synth, the instruments, are made in setup.js.
 
+let beat = 1;
+let bar = 1;
+let isLively = true;
+
 // ---------- Step 1: the instruments, as functions ----------
 // Each one plays at time: the exact moment Tone hands us.
 function playBass(time) {
@@ -10,12 +14,53 @@ function playBass(time) {
 }
 
 // TODO 1a: write playChord(time): play "C4", "E4" and "G4" on synth, all three at time, all "4n" long.
+function playChord(time) {
+  synth.triggerAttackRelease("C4", "4n", time);
+  synth.triggerAttackRelease("E4", "4n", time);
+  synth.triggerAttackRelease("G4", "4n", time);
+}
+
 // TODO 1b: write playMelody(time): play "G4" on synth, "8n" long, at time.
+function playMelody(time) {
+  if (bar <= 4) {
+    synth.triggerAttackRelease("G4", "8n", time);
+  } else if (bar <= 6) {
+    synth.triggerAttackRelease("A4", "8n", time);
+  } else {
+    synth.triggerAttackRelease("E4", "8n", time);
+  }
+}
 
 // ---------- Step 2: hand the beat to Tone ----------
 // Tone calls playStep for us, once every beat, and hands it the time to play at.
 function playStep(time) {
-  playBass(time);
+  console.log("bar " + bar + ", beat " + beat);
+
+  if (beat === 1) {
+    playBass(time);
+  }
+
+  if (beat === 1 || beat === 3) {
+    playChord(time);
+  }
+
+  if (isLively && beat === 4) {
+    synth.triggerAttackRelease("C5", "16n", time);
+  }
+
+  if (bar > 2 && beat !== 1) {
+    playMelody(time);
+  }
+
+  beat = beat + 1;
+  if (beat > 4) {
+    beat = 1;
+    bar = bar + 1;
+  }
+
+  if (bar > 8) {
+    Tone.Transport.stop(time);
+  }
 }
 
 new Tone.Loop(playStep, "4n").start(0); // "4n": once every beat
@@ -54,6 +99,8 @@ new Tone.Loop(playStep, "4n").start(0); // "4n": once every beat
 
 // Runs when you press Play: start counting from the top, then start Tone's clock.
 function startSong() {
+  beat = 1;
+  bar = 1;
   Tone.Transport.stop();
   Tone.Transport.start();
 }
